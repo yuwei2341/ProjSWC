@@ -43,3 +43,37 @@ for spp in spp_names:
 print spp_names
 print spp_recs
 
+# ------------------------------------------------------------------------
+# Save results as table 
+# ------------------------------------------------------------------------
+
+# Put two lists into a pandas DataFrame
+table = pd.DataFrame(np.array(zip(spp_names, spp_recs),
+                 dtype=[('species', 'S12'), ('recs', int)]))
+
+# Save DataFrame as csv
+table.to_csv(results_dir + table_name, index=False)
+
+# -----------------------------------------------------------------------
+# Save results as figure 
+# -----------------------------------------------------------------------
+
+# Set up figure with one axis
+fig, ax = plt.subplots(1, 1)
+
+# Create bar chart: args are location of left edge, height, and width of bar
+ax.bar([0,1,2,3], spp_recs, 0.8)
+
+# Place tick marks in center of each bar
+ax.set_xticks([0.4, 1.4, 2.4, 3.4])
+
+# Set limits to give some white space on either side of first/last bar 
+ax.set_xlim([-0.2, 4])
+
+# Add species names to x axis
+ax.set_xticklabels(spp_names)
+
+# Save figure
+fig.savefig(results_dir + fig_name)
+
+
